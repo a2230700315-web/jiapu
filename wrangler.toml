@@ -4,4 +4,3 @@ pages_build_output_dir = "./dist"
 
 [vars]
 # Set CLAUDE_API_KEY in Cloudflare Pages dashboard → Settings → Environment Variables
-

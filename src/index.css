@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #8B4513;
+  --primary-light: #D2691E;
+  --primary-dark: #5C2E00;
+  --gold: #DAA520;
+  --cream: #FFF8F0;
+  --paper: #F5E6CC;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Noto Serif SC', 'Songti SC', STSong, serif;
+  background-color: var(--cream);
+  color: #2c1810;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* tree lines */
+.tree-line {
+  stroke: var(--primary);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.person-node:hover {
+  filter: drop-shadow(0 4px 12px rgba(139, 69, 19, 0.4));
+  cursor: pointer;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 3px; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn 0.3s ease; }
