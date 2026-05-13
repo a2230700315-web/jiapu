@@ -36,6 +36,7 @@ export default function FamilyTree({ onSelectPerson }) {
   const [selected, setSelected] = useState(null)
 
   const render = useCallback(() => {
+    if (!svgRef.current) return
     const svg = d3.select(svgRef.current)
     svg.selectAll('*').remove()
 
@@ -167,14 +168,22 @@ export default function FamilyTree({ onSelectPerson }) {
     })
 
     // center view
-    const bounds = g.node().getBBox()
-    const scale = Math.min(0.9, Math.min(width / (bounds.width + 80), height / (bounds.height + 80)))
-    const tx = (width - bounds.width * scale) / 2 - bounds.x * scale
-    const ty = (height - bounds.height * scale) / 2 - bounds.y * scale
+    const bbox = g.node()?.getBBox()
+    if (!bbox || bbox.width === 0) return
+    const scale = Math.min(0.9, Math.min(width / (bbox.width + 80), height / (bbox.height + 80)))
+    const tx = (width - bbox.width * scale) / 2 - bbox.x * scale
+    const ty = (height - bbox.height * scale) / 2 - bbox.y * scale
     svg.call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale))
   }, [persons, selected, onSelectPerson])
 
-  useEffect(() => { render() }, [render])
+  useEffect(() => {
+    render()
+    // re-render when container is resized (handles initial zero-size case)
+    if (!svgRef.current) return
+    const observer = new ResizeObserver(() => render())
+    observer.observe(svgRef.current)
+    return () => observer.disconnect()
+  }, [render])
 
   const handleZoom = (factor) => {
     const svg = d3.select(svgRef.current)
