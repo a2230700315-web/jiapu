@@ -3,10 +3,5 @@ compatibility_date = "2024-09-23"
 pages_build_output_dir = "./dist"
 
 [vars]
-# Set CLAUDE_API_KEY via: wrangler secret put CLAUDE_API_KEY
-# Or in Cloudflare Pages dashboard → Settings → Environment Variables
+# Set CLAUDE_API_KEY in Cloudflare Pages dashboard → Settings → Environment Variables
 
-[[kv_namespaces]]
-# Optional: use KV for server-side storage
-# binding = "JIAPU_KV"
-# id = "your-kv-namespace-id"
